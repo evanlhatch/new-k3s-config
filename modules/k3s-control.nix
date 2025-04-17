@@ -11,7 +11,7 @@
     clusterInit = true; # This is the initializing server
 
     # Using tokenFile for secure token management
-    tokenFile = "/run/secrets/k3s.token"; # Path to the K3s token file
+    tokenFile = "${toString ../secrets/k3s.token}"; # Path to the K3s token file
 
     extraFlags = toString [
       # Using default flannel CNI

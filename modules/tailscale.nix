@@ -8,7 +8,7 @@
     services.tailscale = {
       # enable = true; # This is the trigger condition
       # Using authKeyFile for secure key management
-      authKeyFile = "/run/secrets/tailscale.key"; # Path to the Tailscale auth key
+      authKeyFile = "${toString ../secrets/tailscale.key}"; # Path to the Tailscale auth key
       extraUpFlags = [ "--ssh" "--accept-routes" "--accept-dns=true" ];
     };
 

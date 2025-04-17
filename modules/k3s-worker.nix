@@ -12,7 +12,7 @@
     serverAddr = "https://${specialArgs.k3sControlPlaneAddr}:6443";
 
     # Using tokenFile for secure token management (MUST MATCH SERVER)
-    tokenFile = "/run/secrets/k3s.token"; # Path to the K3s token file
+    tokenFile = "${toString ../secrets/k3s.token}"; # Path to the K3s token file
   };
 
   # --- Worker Firewall Rules ---
