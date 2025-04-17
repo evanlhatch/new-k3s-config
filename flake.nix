@@ -15,7 +15,8 @@
 
     # --- Define Hostnames ---
     controlPlaneHostname = "thinkpad-nixos";
-    workerHostnames = [ "hetzner-1" "auslander-nixos" "thinkcenter-1" ];
+    # Only include nodes with complete hardware configurations
+    workerHostnames = [ "hetzner-1" ]; # "auslander-nixos" "thinkcenter-1"
 
     # <<< VERIFY THIS IS YOUR CORRECT TAILNET NAME >>>
     tailnetName = "cinnamon-galaxy.ts.net";
