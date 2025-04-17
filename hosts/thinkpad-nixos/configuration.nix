@@ -11,7 +11,7 @@
 
   # --- Enable Features ---
   services.tailscale.enable = true;
-  monitoring.netdata.enable = true;
+  services.netdata.enable = true;
   # k3s server is enabled within its own module
 
   # --- Hardware Configuration for thinkpad-nixos ---

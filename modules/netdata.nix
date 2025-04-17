@@ -2,8 +2,8 @@
 { config, pkgs, lib, ... }:
 
 {
-  # Config block active if monitoring.netdata.enable = true in host file
-  config = lib.mkIf config.monitoring.netdata.enable {
+  # Config block active if services.netdata.enable = true in host file
+  config = lib.mkIf config.services.netdata.enable {
 
     services.netdata = {
       enable = true;

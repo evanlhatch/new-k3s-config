@@ -10,7 +10,7 @@
 
   # --- Enable Features ---
   services.tailscale.enable = true;
-  monitoring.netdata.enable = true;
+  services.netdata.enable = true;
   # k3s agent is enabled within its own module
 
   # --- Hardware Configuration for thinkcenter-1 ---
