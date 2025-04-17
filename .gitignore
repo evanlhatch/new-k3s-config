@@ -1,0 +1,21 @@
+# Nix build outputs
+result
+result-*
+
+# Secrets
+/secrets/*
+!secrets/README.md
+
+# Editor files
+.vscode/
+.idea/
+*.swp
+*~
+
+# OS specific
+.DS_Store
+Thumbs.db
+
+# Temporary files
+*.tmp
+*.bak
