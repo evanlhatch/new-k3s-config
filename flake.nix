@@ -18,6 +18,10 @@
     # Only include nodes with complete hardware configurations
     workerHostnames = [ "hetzner-1" ]; # "auslander-nixos" "thinkcenter-1"
 
+    #trusted-users
+    nix.settings.trusted-users = [ "root" "@wheel" "evan" ];
+
+
     # <<< VERIFY THIS IS YOUR CORRECT TAILNET NAME >>>
     tailnetName = "cinnamon-galaxy.ts.net";
 
