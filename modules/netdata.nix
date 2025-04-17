@@ -2,11 +2,11 @@
 { config, pkgs, lib, ... }:
 
 {
-  # Config block active if services.netdata.enable = true in host file
-  config = lib.mkIf config.services.netdata.enable {
-
+  # Netdata configuration module
+  config = {
+    # The services.netdata.enable option is set in the host configuration files
     services.netdata = {
-      enable = true;
+      # Configuration applied when netdata is enabled
       config = {
         "global" = {
           "update every" = 1;
