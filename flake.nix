@@ -19,7 +19,7 @@
     workerHostnames = [ "hetzner-1" ]; # "auslander-nixos" "thinkcenter-1"
 
     #trusted-users
-    nix.settings.trusted-users = [ "root" "@wheel" "evan" ];
+    nix.settings.trusted-users = [ "root" "@wheel" "evan" "nixos" ];
 
 
     # <<< VERIFY THIS IS YOUR CORRECT TAILNET NAME >>>
@@ -86,7 +86,7 @@
         let
            # <<< VERIFY/SET DEPLOYMENT TARGETS & USERS FOR ALL HOSTS >>>
            deploymentMap = {
-             "thinkpad-nixos" = { target = "100.109.40.58"; user = "nixos"; };
+             "thinkpad-nixos" = { target = "100.109.40.58"; user = "root"; };
              "hetzner-1" = { target = "5.161.197.57"; user = "root"; };
              "auslander-nixos" = { target = "AUSLANDER_IP_OR_HOSTNAME"; user = "root"; }; # <<< SET THIS
              "thinkcenter-1" = { target = "THINKCENTER_IP_OR_HOSTNAME"; user = "root"; }; # <<< SET THIS

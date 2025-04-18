@@ -1,52 +1,59 @@
 # ./hosts/thinkpad-nixos/configuration.nix
-{ config, pkgs, lib, specialArgs, modulesPath, ... }: # Added modulesPath for consistency if needed later
+{ config, pkgs, lib, specialArgs, modulesPath, ... }:
 {
   imports = [
     # Role and Feature Modules
-    ../../modules/k3s-control.nix # Control plane role
+    ../../modules/k3s-control.nix
     ../../modules/tailscale.nix
     ../../modules/netdata.nix
-    # Note: Import from hardware-config (modulesPath + "/installer/scan/not-detected.nix") generally not needed here
+    # REMOVED: (modulesPath + "/boot/loader/grub/grub.nix") - Not needed for systemd-boot
   ];
 
   # --- Enable Features ---
   services.tailscale.enable = true;
-  services.netdata.enable = true;
+  services.netdata.enable = true; # Corrected enable flag
   # k3s server is enabled within its own module
 
   # --- Hardware Configuration for thinkpad-nixos ---
-    # Populated from provided hardware-configuration.nix output
-    boot.initrd.availableKernelModules = [ "xhci_pci" "nvme" "usb_storage" "sd_mod" ];
-    boot.initrd.kernelModules = [ ];
-    boot.kernelModules = [ "kvm-intel" ];
-    boot.extraModulePackages = [ ];
+  # Populated from provided hardware-configuration.nix output
+  boot.initrd.availableKernelModules = [ "xhci_pci" "nvme" "usb_storage" "sd_mod" ];
+  boot.initrd.kernelModules = [ ];
+  boot.kernelModules = [ "kvm-intel" ];
+  boot.extraModulePackages = [ ];
 
-    fileSystems."/" = {
-      device = "/dev/disk/by-uuid/1e9bf502-7ca7-4c62-ab11-755a31c0724a";
-      fsType = "ext4";
-    };
-    fileSystems."/boot" = {
-      device = "/dev/disk/by-uuid/12CE-A600";
-      fsType = "vfat";
-    };
-    swapDevices = [ ];
+  fileSystems."/" = {
+    device = "/dev/disk/by-uuid/1e9bf502-7ca7-4c62-ab11-755a31c0724a";
+    fsType = "ext4";
+  };
+  fileSystems."/boot" = {
+    # systemd-boot REQUIRES the ESP to be mounted at /boot
+    device = "/dev/disk/by-uuid/12CE-A600";
+    fsType = "vfat";
+  };
+  swapDevices = [ ];
 
-    # --- Bootloader Config (Corrected for EFI) ---
-    boot.loader.grub = {
-      enable = true;
-      # <<< VERIFY THIS DEVICE PATH IS CORRECT FOR THE THINKPAD (e.g., /dev/nvme0n1 or /dev/sda) >>>
-      devices = [ "/dev/nvme0n1" ]; # Physical disk path
-      useOSProber = false;
-      # --- Key Fix for UEFI ---
-      efiSupport = true; # Tell GRUB to install the EFI version
-    };
-    # This setting is needed for EFI systems to allow writing boot entries
-    boot.loader.efi.canTouchEfiVariables = true;
-    # Explicitly disable systemd-boot since we are using GRUB
-    boot.loader.systemd-boot.enable = false;
-    # --- End Bootloader Config ---
+  # --- Bootloader Config (Using systemd-boot for EFI) ---
+  boot.loader.systemd-boot = {
+    enable = true;
+    # Configuration options for systemd-boot can go here if needed
+    # e.g., consoleMode = "max";
+  };
 
-    # --- Host Specific Settings ---
-    networking.hostName = "thinkpad-nixos"; # Matches hostname used in flake.nix
-    # Other settings inherited from commonBaseModule in flake.nix
-  }
+  # EFI settings are still relevant for systemd-boot
+  boot.loader.efi = {
+    canTouchEfiVariables = true;
+    # efiSysMountPoint defaults to "/boot" which is standard for systemd-boot,
+    # so explicitly setting it isn't usually required but doesn't hurt:
+    # efiSysMountPoint = "/boot";
+  };
+
+  # Explicitly disable GRUB
+  boot.loader.grub.enable = false;
+  # --- End Bootloader Config ---
+
+  # REMOVED: environment.variables.grub_PLATFORM - Not needed for systemd-boot
+
+  # --- Host Specific Settings ---
+  networking.hostName = "thinkpad-nixos"; # Matches hostname used in flake.nix
+  # Other settings inherited from commonBaseModule in flake.nix
+}
