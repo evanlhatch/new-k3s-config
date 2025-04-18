@@ -34,5 +34,6 @@
   environment.systemPackages = with pkgs; [
     kubectl # Needed to interact with the cluster
     kubernetes-helm # Needed for deploying K8s apps
+    fluxcd
   ];
 }

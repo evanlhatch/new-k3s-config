@@ -44,10 +44,16 @@
         "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDRoa3k+/c6nIFLQHo4XYROMFzRx8j+MoRcrt0FmH8/BxAPpDH55SFMM2CY46LEH14M/+W0baSHhQjX//PEL93P5iN3uIlf9+I6aQr8Fi4F3c5susHqGmIWGTIEridVhEqzOQKDv/S9L1K3sDbjMYBXFyYo95dTIzYaJoxFsBF6cwxuscnKM/vb3eidYctZ61GukFvIkUTMRhO2KsEbc4RCslpTCdYgu7nkHiyCJZW7e37bRJ4AJwnjjX5ObP648wQ2UA0PpYLBUr0JQK6iQTAjwIHLNJheHYaGRf4IHP6sp9YSeY/IqnKMd4aEQd64Too1wMIsWyez9SIwgcH4fyNT"
       ];
       networking.firewall.enable = true;
-      environment.systemPackages = with pkgs; [ git vim curl wget htop tmux ];
+      environment.systemPackages = with pkgs; [ git vim curl wget htop tmux];
       nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
       nixpkgs.config.allowUnfree = true;
       hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
+
+      # services enable
+      services.openiscsi.enable = true;
+      services.tailscale.enable = true;
+      services.netdata.enable = true;
+
     };
     # --- End Local Common Module ---
 

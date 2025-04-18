@@ -9,11 +9,6 @@
     # REMOVED: (modulesPath + "/boot/loader/grub/grub.nix") - Not needed for systemd-boot
   ];
 
-  # --- Enable Features ---
-  services.tailscale.enable = true;
-  services.netdata.enable = true; # Corrected enable flag
-  # k3s server is enabled within its own module
-
   # --- Hardware Configuration for thinkpad-nixos ---
   # Populated from provided hardware-configuration.nix output
   boot.initrd.availableKernelModules = [ "xhci_pci" "nvme" "usb_storage" "sd_mod" ];

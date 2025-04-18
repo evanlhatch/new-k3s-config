@@ -8,11 +8,6 @@
     ../../modules/netdata.nix
   ];
 
-  # --- Enable Features ---
-  services.tailscale.enable = true;
-  services.netdata.enable = true;
-  # k3s agent is enabled within its own module
-
   # --- Hardware Configuration for auslander-nixos ---
   # <<< ================================================================= >>>
   # <<< CRITICAL: FILL THIS SECTION WITH ACTUAL VALUES FOR auslander-nixos  >>>

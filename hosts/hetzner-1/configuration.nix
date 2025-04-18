@@ -11,11 +11,6 @@
     (modulesPath + "/profiles/qemu-guest.nix")
   ];
 
-  # --- Enable Features ---
-  services.tailscale.enable = true;
-  services.netdata.enable = true;
-  # k3s agent is enabled within its own module
-
   # --- Hardware Configuration for hetzner-1 ---
   # Populated from provided hardware-configuration.nix output
   boot.initrd.availableKernelModules = [ "ata_piix" "uhci_hcd" "xen_blkfront" "vmw_pvscsi" ];
